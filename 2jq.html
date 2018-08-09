@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery源码分析</title>
+</head>
+<body>
+    <script type="text/javascript">
+		/**
+		 * 第二部分：给JQ对象添加实例属性和方法
+		 */
+		jQuery.fn = jQuery.prototype = {
+			jquery: 版本 //alert($().jquery) => 2.0.3
+			
+			constructor: jQuery //修正指向问题，防止构造函数的指向改变
+			
+			init(): //初始化和参数管理
+		}
+		/*
+		    问题一：constructor: jQuery 的作用
+				防止构造函数的指向改变
+				1.
+					Aaa1.prototype.name = 'hello';
+					Aaa1.prototype.age = 23;
+					var a1 = new Aaa1();
+					alert(a1.constructor); 
+					结果：function Aaa1(){}
+				2.
+					Aaa2.prototype = {
+						name: 'hello',
+						age: 23
+					}
+					var a2 = new Aaa2();
+					alert(a2.constructor)
+					结果：function Object(){}
+				3.
+					Aaa3.prototype = {
+						constructor: Aaa3,
+						name: 'hello',
+						age: 23					
+					}
+					var a3 = new Aaa3();
+					alert(a3.constructor)
+					结果： function Aaa3(){}
+					
+		    问题二：init(selector, context, rootjQuery)	
+				selector:
+					$(""), $(null), $(undefined), $(false)
+					
+					$('#div1'), $('.box'), $('div') $('#div1 div.box'), $('<li>hello')
+					$('<li>'), $('<li>1</li>')
+					
+					$(this), $(document)
+					
+					$(function(){})
+					
+					$([]) $({})
+				context:
+					document, $(document), $('#myIframe')....
+			
+				if (typeof selector === "string") {
+					if(){
+						$('<li>'), $('<li>1</li>')
+						match = [ null, '<li>', null];
+						match = [ null, '<li>1</li>', null];
+					}else{
+						$('#div1')
+						match = ['#div1', null, 'div1'];
+						$('.box'), $('div') $('#div1 div.box')
+						match = null;
+						$('<li>hello')
+						match = ['<li>hello','<li>', null]
+					}
+					
+					if(match && (match[1] || !context)){
+						$('<li>'), $('<li>1</li>'), $('#div1')
+						进一步判断：
+						if(){ //创建标签
+							$('<li>'), $('<li>1</li>')
+							var str = '<li>1</li><li>2</li><li>3</li><script>alert(4)<\/script>';
+							var arr = jQuery.parseHTML(str, document, true); //['li', 'li', 'li', 'script']
+							var arr = jQuery.parseHTML(str, document, false); //['li', 'li', 'li']
+							$.each(arr, function(){
+								$('ul').append(arr[i]);
+							})
+							
+							var arr1 = {
+								0 : 'a',
+								1 : 'b',
+								length: 2
+							};
+							var arr2 = ['c','d'];
+							console.log($.merge(arr1, arr2));
+							
+							//输出：
+							{
+								0 ：'a',
+								1 : 'b',
+								2 : 'c',
+								3 : 'd',
+								length: 4
+							}
+						
+						
+						
+						}else{ //
+							$('#div1')
+						}
+					
+					}
+				
+				}	
+			
+			
+			
+		 
+		 
+		 */
+		
+		
+		
+		
+        
+    </script>
+</body>
+</html>
