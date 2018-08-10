@@ -15,7 +15,41 @@
 			constructor: jQuery //修正指向问题，防止构造函数的指向改变
 			
 			init(): //初始化和参数管理
+			
+			selector：//存储选择字符串
+			
+			length：//存储this对象的长度
+			
+			toArray(): //转数组
+			
+			get(): //转原生集合
+			
+			pushStack(): //JQ对象入栈
+			
+			each(): //遍历集合
+			
+			ready(): //DOM加载的接口
+			
+			slice(): //集合的截取
+			
+			first(): //集合的第一项
+			
+			last(): //集合的最后一项
+			
+			eq(): //集合的指定向
+			
+			map(): //返回新集合
+			
+			end(): //返回集合前一个状态
+			
+			push: //内部使用
+			
+			sort: //内部使用
+			
+			splice: //内部使用
+			
 		}
+		
 		/*
 		    问题一：constructor: jQuery 的作用
 				防止构造函数的指向改变
@@ -42,7 +76,8 @@
 					var a3 = new Aaa3();
 					alert(a3.constructor)
 					结果： function Aaa3(){}
-					
+		*/
+		/*
 		    问题二：init(selector, context, rootjQuery)	
 				selector:
 					$(""), $(null), $(undefined), $(false)
@@ -100,23 +135,89 @@
 								3 : 'd',
 								length: 4
 							}
-						
-						
-						
-						}else{ //
+						}else{ // 存的ID
 							$('#div1')
+							elem = document.getElementById('ID')
 						}
-					
+					} else if (!context || context.jquery) {
+						$('ul', $(document)).find('ul li .box')
+					} else {
+						$('ul', document).find('ul li .box')
 					}
-				
+				}else if(selector.nodeType){
+					//$(this) $(document)
+					var nodeDom = $('#oMyDom');
+					$(nodeDom)	
+				}else if(jQuery.isFunction(selector)){
+					//$(function(){}) -> $(document).ready(function(){})
 				}	
-			
-			
-			
-		 
-		 
+			    if ( selector.selector !== undefined ) {
+					//将$($('#div1'))变成 $('#div1')
+					this.selector = selector.selector;
+					this.context = selector.context;
+				}
+				return jQuery.makeArray( selector, this ); // 转成json数据格式
+				// var aDiv = document.getElementsTagName('div');
+				// console.log($.makeArray(aDiv, {length: 0}))
+				// 输出：Object { 0 = div, 1 = div, 2 = div, length = 0}
 		 */
+		/*
+			问题三：toArray()
+			
+				$('div')
+				//输出JSON对象:{0：div, 1: div, 2: div, length: 3}
+				
+				$('div').toArray()
+				//输出数组：[div, div, div]
+		*/
+		/*
+			问题四：get()
+				功能：转换成DOM原生集合或者原生元素
+				<div>111</div>
+				<div>222</div>
+				<div>333</div>
+				
+				$('div').get(0).innerHTML = '0000'
+				for(var i = 0; i < $('div').get().length; i++){
+					$('div').get(i).innerHTML = '222222'
+				}
+				
+				由于jQuery对象调用get()生成了原生元素，既可以调用js的原生函数innerHTML等函数
+				
+		*/	
+		/*
+			问题五：pushStack()
+				JQ对象入栈
+				队列；先进先出，后进后出
+				栈：先进后出，后进先出
+			    pushStack: function( elems ) {
+					// ret相当于elems，jQuery.merge()生成一个JSON
+					var ret = jQuery.merge( this.constructor(), elems );
+
+					// 将调用此方法的元素挂载到elems下
+					ret.prevObject = this;
+					ret.context = this.context;
+					return ret;
+				}
+				
+				<div>div</div>
+				<span>span</span>
+				
+				$('div').pushStack($('span')).css('background', 'red');  // span会变红
+				$('div').pushStack($('span')).css('background', 'red').end().css('background', 'yellow');  // span会变红, div变黄
 		
+		*/
+		/*
+			问题六：eq()
+			eq: function( i ) {
+				var len = this.length,
+					j = +i + ( i < 0 ? len : 0 );
+				return this.pushStack( j >= 0 && j < len ? [ this[j] ] : [] );
+			}
+			通过pushStack()方法，将选中的元素放到栈的顶层
+		
+		
+		*/
 		
 		
 		
@@ -124,3 +225,38 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

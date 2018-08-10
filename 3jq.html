@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery源码分析</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/**
+		 * 第三部分：jQuery的继承方法（extend）
+		 */
+		 
+		jQuery.extend = jQuery.fn.extend = function(){
+			//定义一些变量
+			if(){} //看是不是深拷贝情况
+			if(){} //看参数正确不
+			if(){} //看是不是插件情况
+			for(){ //可能有多个对象情况
+				if(){} //防止循环引用
+				if(){} //深拷贝
+				else if(){} //浅拷贝
+			}
+		}
+		
+		/*
+			当只写一个对象自变量的时候，JQ中扩展插件的形式
+			$.extend({})
+		*/
+		$.extend({ //扩展工具方法
+			aaa: function(){
+				alert(1);
+			},
+			bbb: function(){
+				alert(2);
+			}
+		})
+		$.aaa(); //弹出1
+		$.bbb(); //弹出2
+		$.extend(); -> this -> $ -> this.aaa -> $.aaa()
+		
+		$.extend({ //扩展实例方法
+			aaa: function(){
+				alert(1);
+			},
+			bbb: function(){
+				alert(2);
+			}
+		})
+		$().aaa(); //弹出1
+		$().bbb(); //弹出2
+		$.fn.extend(); ->this -> $.fn -> this.aaa -> $().aaa()
+		/*
+			当写多个对象自变量的时候，后面的对象都是扩展到第一个对象身上
+			$.extend({},{},{})
+		*/
+		var a = {};
+		$.extend(a, {name: 'hello'}, {age: 30});
+		console.log(a);// Object {name: 'hello', age: 30}
+	
+		/*
+			可以做深拷贝和浅拷贝
+		*/
+		//浅拷贝
+		var a = {};
+		var b = {name: {age: 30}};
+		$.extend(a, b);
+		a.name.age = 20;
+		alert(b.name.age) //20
+		//深拷贝
+		var a = {};
+		var b = {name: {age: 30}};
+		$.extend(true, a, b); //添加true
+		a.name.age = 20;
+		alert(b.name.age); // 30
+		
+		
+		/*
+			继承
+				JQ：拷贝继承
+				JS：类式继承 / 原型继承
+		*/
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+        
+    </script>
+</body>
+</html>
