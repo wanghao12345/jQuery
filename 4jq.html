@@ -10,6 +10,71 @@
 		 *	jQuery.extend():扩展工具方法
 		 */
         
+		jQuery.extend({
+			expando: //生成唯一JQ字符串（内部）
+			noConflict(): //防止冲突
+			isReady: //DOM是否加载完（内部）
+			readyWait: //等待多少文件的计数器（内部）
+			holdReady(): //推迟DOM触发
+			ready(): //准备DOM触发
+			isFunction(): //是否为函数
+			isArray(): //是否是数组
+			isWindow(): //是否是window
+			isNumeric(): //是不是数字（NaN不是数字）
+		
+		})
+		jQuery.ready.promise = function(){};//监测DOM的异步操作（内部）
+		function isArraylike(){} //类似数组的判断（内部）
+		/*
+			写法一：$(function(){}) 
+			-> $(document).ready(function(){}) 
+			-> $().ready()
+			-> jQuery.ready.promise().done(fn): jQuery.ready.promise()[延迟函数]
+			-> if(document.readyState === "complete"){}else{}
+			-> document.addEventListener("DOMContentLoaded", completed, false);
+			   window.addEventListener("load", completed, false);
+			   最终执行DOMContentLoaded事件
+			-> completed = function(){
+				   document.removeEventListener("DOMContentLoaded", completed, false);
+				   window.removeEventListener("load", completed, false);
+			   }
+			-> $.ready();
+			-> readyList.resolveWith(document, [jQuery])
+				
+				1.当DOM加载完，才执行
+				2.DOMContentLoaded：原生js事件，等待DOM结构加载完毕执行
+			
+			写法二：$(document).on("ready", function(){})
+
+			写法三：window.onload = function(){}; 
+			
+				1.当页面所有的东西都加载完毕，才执行
+		*/
+		/*
+			holdReady()
+			
+			$.holdReady(true):推迟触发
+			$.holdReady(false):取消推迟
+			
+			实例：
+				
+				$.holdReady(true);
+				$.getScript('a.js', function(){  //a.js:  alert(1)
+					$.holdReady(false);
+				})
+				$(function(){
+					alert(2)
+				})
+			结果：先弹1，后弹2
+			如果不使用holdRead(),会先弹2，后弹1
+		*/
+		/*
+			isFunction()
+			
+		*/
+		
+		
+		
     </script>
 </body>
 </html>
