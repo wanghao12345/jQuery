@@ -21,7 +21,17 @@
 			isArray(): //是否是数组
 			isWindow(): //是否是window
 			isNumeric(): //是不是数字（NaN不是数字）
-		
+			type(): //判断数据类型
+			isPlainObject(): //是否为对象自变量
+			isEmptyObject(): //是否为空的对象
+			error(): //抛出异常
+			parseHTML(): //解析节点
+			parseJSON(): //解析JSON
+			parseXML(): //解析XML
+			noop(): //空函数
+			globalEval(): //全局解析JS
+			camelCase(): //转驼峰（内部）
+			nodeName(): //是否为指定节点名（内部）
 		})
 		jQuery.ready.promise = function(){};//监测DOM的异步操作（内部）
 		function isArraylike(){} //类似数组的判断（内部）
@@ -69,9 +79,141 @@
 			如果不使用holdRead(),会先弹2，后弹1
 		*/
 		/*
-			isFunction()
+			type()
+			关键点：{}.toString.call('被判断的类型')
+			alert({}.toString.call([])) -> [Object Array]
+			alert({}.toString.call(new Date)) -> [Object Date]
+		*/
+		/*
+			isPlainObject()
+			
+			var obj1 = { name: 'hello'};
+			var obj2 = new Object();
+			
+			var arr = [];
+			
+			alert($.isPlainObject(obj1)); -> true
+			alert($.isPlainObject(obj2)); -> true
+			alert($.isPlainObject(arr));  -> false
+		*/
+		/*
+			isEmptyObject():没有自身的属性和方法就是真
+			
+			var obj1 = { name: 'hello'};
+			var obj2 = {};
+			
+			var arr1 = [];
+			var arr2 = [1, 2];
+			
+			function Aaa(){}
+			var aaa = new Aaa();
+			
+			alert($.isEmptyObject(obj1)); -> false
+			alert($.isEmptyObject(obj2)); -> true
+			alert($.isEmptyObject(arr1)); -> true
+			alert($.isEmptyObject(arr2)); -> false
+			alert($.isEmptyObject(aaa));  -> true
+			
 			
 		*/
+		/*
+			error()
+			    throw new Error(msg)
+			$.error('这是错误!')
+			作用：方便开发者自查
+		*/
+		/*
+			parseHTML()
+			
+			var str = '<li></li><li></li>';
+			console.log(str); -> [li, li]
+		*/
+		/*
+			parseJSON()
+				JSON.parse
+			
+			var str = '{"name" : "hello"}';
+			
+			alert($.parseJSON(str).name); -> hello
+			alert(JSON.parse(str).name); -> hello
+		*/
+		/*
+			noop()
+			
+			function Aaa(){
+				this.defaults = {
+					show : $.noop
+					//等同于：
+					//show: function(){}
+				}
+			}
+			
+			Aaa.prototype.init = function(opt){
+				$.extend(this.defaults, opt)
+			}
+			
+			
+		*/
+		/*
+			globalEval()
+			
+			function test(){
+				jQuery.globalEval('var newVar = true');
+				var newVar1 = true;
+			}
+			
+			test();
+			alert(newVar)  -> true
+			alert(newVar1) -> false
+		*/
+		/*
+			camelCase()
+			
+			margin-top -> marginTop
+			-ms-transform -> msTransform
+			-moz-transform -> MozTransform
+		*/
+		/*
+			nodeName()
+			alert($.nodeName(document.documentElement, 'html')); -> true
+			alert($.nodeName(document.body, 'html')); -> false
+			
+			22节
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
